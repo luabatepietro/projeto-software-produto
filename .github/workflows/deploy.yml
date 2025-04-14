@@ -25,7 +25,7 @@ jobs:
     - name: Login to Docker Hub
       uses: docker/login-action@v3
       with:
-        username: "jpqv"
+        username: "luabatepietro"
         password: ${{ secrets.DOCKERHUB_TOKEN }}
       
     - name: Set up Docker Buildx
@@ -37,7 +37,7 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: jpqv/produto-ci:${{ github.sha }}
+        tags: luabatepietro/produto-ci:${{ github.sha }}
 
     - name: executing remote ssh commands using password
       uses: appleboy/ssh-action@master
@@ -49,4 +49,4 @@ jobs:
         script: |
           docker stop produto
           docker rm --force produto
-          docker run -d -p 8082:8082 -e REDIS_HOST=redis -e string_conexao_MongoDB_biblioteca=${{ secrets.string_conexao_MongoDB_biblioteca }} --name produto --network=rede jpqv/produto-ci:${{ github.sha }}
+          docker run -d -p 8082:8082 -e REDIS_HOST=redis -e string_conexao_MongoDB_biblioteca=${{ secrets.string_conexao_MongoDB_biblioteca }} --name produto --network=rede luabatepietro/produto-ci:${{ github.sha }}
